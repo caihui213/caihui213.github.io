@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>jdk的环境配置 | ChのBlog</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.ico"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=2.0.13"><!-- inject head--><link rel="canonical" href="http://example.com/2022/05/07/jdk%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="一、 准备工作JDK8下载地址 JDK11下载地址 下载好之后双击exe文件，启动安装程序，选择好安装的路径即可，这里要注意一点不要有中文路径，切记。 二、安装① JDK 1.8安装选择“是”，然后如下图：点击下一步：我在这里并不修改JDK的安装路径，所以无需改动，点击下一步：安装过程中会弹出jr"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="ChのBlog"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/pwa/favicon.ico"><link rel="apple-touch-icon" href="/img/pwa/favicon.ico" sizes="180x180"><script>console.log(' %c Solitude %c ' + '2.0.13' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+          },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        sayhello: {
+            morning: "✨ Good morning. It's a new day",
+            noon: "It's time for a midday break",
+            afternoon: "Tea time. 🍵",
+            night: "early bedtime",
+            goodnight: "Good night 😴",
+        },
+        sayhello2: ["You'll make it.","You're gonna make it.","Good luck, stranger."],
+        sayhello3: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    post_ai: false,
+    right_menu: false,
+    lure: false,
+    expire: false,
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body id="body"><!-- universe--><!-- background img--><!-- loading--><!-- console--><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fa-solid fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">project</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" title="Solitude"><img class="nolazyload back-menu-item-icon" src="/img/pwa/favicon.ico" alt="Solitude"><span class="back-menu-item-text">Solitude</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>链接</span></a></li><li><a class="site-page child" href="javascript:travelling()"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/tlink/"><i class="solitude  fas fa-toolbox"></i><span>工具</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><span>关于</span></a></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/hexo/">hexo<sup>2</sup></a></div></div></div></div><!-- keyboard--><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon solitude fas fa-bars-progress"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">project</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" title="Solitude"><img class="nolazyload back-menu-item-icon" src="/img/pwa/favicon.ico" alt="Solitude"><span class="back-menu-item-text">Solitude</span></a></div></div></div></div><a id="site-name" href="/" title="返回博客主页"><span class="title">Solitude</span><i class="solitude fa-solid fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">jdk的环境配置</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>链接</span></a></li><li><a class="site-page child" href="javascript:travelling()"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/tlink/"><i class="solitude  fas fa-toolbox"></i><span>工具</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><span>关于</span></a></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fa-solid fa-dice-d6"></i></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fa-solid fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fa-solid fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/default.avif" alt="jdk的环境配置"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/hexo/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>hexo</span></a></div></div></div></div><h1 class="post-title">jdk的环境配置</h1><div id="post-meta"><div class="meta-secondline"></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="一、-准备工作"><a href="#一、-准备工作" class="headerlink" title="一、 准备工作"></a>一、 准备工作</h3><p><a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8下载地址</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/#java11-windows">JDK11下载地址</a></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/bd15dc919e9a42d036a26cc7d0aba5fb.png#pic_center" alt="在这里插入图片描述"></p>
+<p>下载好之后双击exe文件，启动<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F&spm=1001.2101.3001.7020">安装程序</a>，选择好安装的路径即可，这里要注意一点不要有中文路径，切记。</p>
+<h3 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h3><h4 id="①-JDK-1-8安装"><a href="#①-JDK-1-8安装" class="headerlink" title="① JDK 1.8安装"></a>① JDK 1.8安装</h4><p><img src="https://i-blog.csdnimg.cn/blog_migrate/bd3f644b06bed7342cf4fdf7e0fe32d9.png#pic_center" alt="在这里插入图片描述"><br>选择“是”，然后如下图：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/93c35456095180a61267474119f03128.png#pic_center" alt="在这里插入图片描述"><br>点击下一步：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/b4e09c333beeccbc8a04cef4f2410090.png#pic_center" alt="在这里插入图片描述"><br>我在这里并不修改JDK的安装路径，所以无需改动，点击下一步：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/cc95370dbbe0f8ccf39fd9414095f2dc.png#pic_center" alt="在这里插入图片描述"><br>安装过程中会弹出jre的安装提示框，如下所示：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/ad9be5a24ca1b2e7df26b9ad6f1ea26c.png#pic_center" alt="在这里插入图片描述"><br>这里无需改动，点击下一步,然后你会看到这个：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/beb949820d03a67fe5ee404a40fcb85b.png#pic_center" alt="在这里插入图片描述"><br>反正你也很无聊，不如讲一下这个图的含义，Java成为3亿人的驱动,Java属于ORACLE公司，这里做后台的朋友应该比较清楚，而Java8的新特性，也使Java后面的JDK更替变得黯淡无光，所以现在开发人员中有90%的人还是选择Java8，最新的Java14无人问津，主要是因为Java8的稳定性。其次还有一点，就是Java以后的JDK可能不会开源了，这意味着后面不管他们有什么骚操作，使用了之前Java版本的人，都将被将一军，这时Google这个老狐狸就很狡猾，使用新语言，于是Android Studio编译器后续的首选语言就变成了Kotlin，而不再是Java了，也算是未雨绸缪了，你看完这些应该就已经安装完成了。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/fd9d75d462b2523349ae9d1a2327fc6f.png#pic_center" alt="在这里插入图片描述"><br>这样就安装完成了，点击“关闭”,然后进行环境变量的配置。</p>
+<h4 id="②-JDK-11-https-so-csdn-net-so-search-q-JDK-11-spm-1001-2101-3001-7020-安装"><a href="#②-JDK-11-https-so-csdn-net-so-search-q-JDK-11-spm-1001-2101-3001-7020-安装" class="headerlink" title="② [JDK 11](https://so.csdn.net/so/search?q=JDK 11&amp;spm&#x3D;1001.2101.3001.7020)安装"></a>② [JDK 11](<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=JDK">https://so.csdn.net/so/search?q=JDK</a> 11&amp;spm&#x3D;1001.2101.3001.7020)安装</h4><p>  JDK11安装速度实际是很快的，因为它没有为我们安装jre，而1.8会去安装jre，这就是区别所在，另外，后面的JDK版本可能都不会为你安装jre，因此你需要手动去生成jre文件。在后面配置环境变量哪里会说明怎么生成JDK 11的jre文件。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/00fdbb00fe9bfd7465ec5e8e41eec6be.png#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="三、-配置环境变量"><a href="#三、-配置环境变量" class="headerlink" title="三、 配置环境变量"></a>三、 配置环境变量</h3><h4 id="①-进入高级系统设置"><a href="#①-进入高级系统设置" class="headerlink" title="① 进入高级系统设置"></a>① 进入高级系统设置</h4><p>方式一：使用快捷键<code>Win + S</code> ，在输入框中输入<code>env</code>，按回车即可。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/986ba677efd4375752b8166f244f163c.png#pic_center" alt="在这里插入图片描述"></p>
+<p>方式二：</p>
+<p>鼠标右键 “此电脑” 选择属性，之后会出现一个弹窗，点击 “<code>高级系统设置</code>”</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/4e182f610914a2e1cf7826d7329fce55.png#pic_center" alt="在这里插入图片描述"><br>如下图：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/e852192cf190cf15f71dbba42c6f72a0.png#pic_center" alt="在这里插入图片描述"><br>点击 “环境变量” 然后会看到这样的画面：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/bee4c28e5de4f6bb7a3d5e152af14299.png#pic_center" alt="在这里插入图片描述"><br>关键是下面的内容，用户变量可以不用管：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/89d82a787b72565d114d9933f88dac71.png#pic_center" alt="在这里插入图片描述"><br>至此你已经完成了所有的准备步骤，接下来就是环境配置了：</p>
+<h4 id="②-JDK1-8配置"><a href="#②-JDK1-8配置" class="headerlink" title="② JDK1.8配置"></a>② JDK1.8配置</h4><ol>
+<li>点击“新建”会出现一个弹窗：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/c326abee2660a19dfee4454cd70431ac.png#pic_center" alt="在这里插入图片描述"><br>变量名：<strong>JAVA_HOME</strong><br>变量值：C:\Program Files\Java\jdk1.8.0_162(JDK的安装路径，这里以你自己的安装路径为准)</li>
+</ol>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d8d9868db73e5abcd85226164d125b7c.png#pic_center" alt="在这里插入图片描述"><br>输入完成之后点确认，第一项配置就完成了，接下来进行第二步</p>
+<ol>
+<li>新建<strong>CLASSPATH</strong> 变量，变量值为：<br><strong>.;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</strong>(注意前面是有一个点的)，配置好之后如下图，这里是可以复制粘贴的。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/9e743db546e57b741b54a34d5b7c3abd.png#pic_center" alt="![在这里插入图片描述](https://img-blog.csdnimg.cn/20200324145920366.png"></li>
+</ol>
+<p>然后点确定保存变量，进入第三步</p>
+<ol>
+<li>配置<strong>path</strong>,找到path，双击或者点编辑</li>
+</ol>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/fbfa277a305a07663ed9458eaf70a507.png#pic_center" alt="在这里插入图片描述"><br>然后可以看到path里面已经有很多内容了，我们在最后面新建一个：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/91d492c26b607fd044e696241991189d.png#pic_center" alt="在这里插入图片描述"><br>输入 <strong>%JAVA_HOME%\bin</strong></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/ec904b70ed0714b6d5594808e0f0ab6d.png#pic_center" alt="在这里插入图片描述"><br>然后点确定保存，出去之后再点确定，然后再点确定，至此环境变量配置完毕，接下来就是测试环境变量配置有没有问题了。</p>
+<h4 id="③-JDK11配置"><a href="#③-JDK11配置" class="headerlink" title="③ JDK11配置"></a>③ JDK11配置</h4><p>在系统变量下点击<code>新建</code>按钮，弹出的窗口中输入变量名和变量值（JDK实际安装路径），如下图所示：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/5ce3876a4f78ad7337314a87b8689382.png" alt="在这里插入图片描述"></p>
+<p>点击确定，然后我们在系统变量下找到<code>Path</code>变量，点击编辑，然后再弹出的窗口中点击新建按钮，输入：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME11%\bin</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME11%\jre\bin</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>注意这里是新建一次添加一个，你不要一次就添加两个，那样是不行，如下图所示就是最终结果。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d98fbe7a9731534c6ae2f9fd1b0a7367.png" alt="在这里插入图片描述"></p>
+<p>点击确定关闭弹窗，再点击确定，回到最开始打开的那个窗口。</p>
+<h4 id="④-生成jre文件夹"><a href="#④-生成jre文件夹" class="headerlink" title="④ 生成jre文件夹"></a>④ 生成jre文件夹</h4><p>使用快捷键<code>Win + S</code>，输入<code>cmd</code>，选择<code>以管理员身份运行</code>。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/7b44ed1385b07d91c263b9917fbe2b96.png" alt="在这里插入图片描述"></p>
+<p>因为我是安装在D盘，所以首先我们进入D盘：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>进入JDK11安装目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Java\jdk-11</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>然后使用如下命令生成jre文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin\jlink.exe --module-path jmods --add-modules java.desktop --output jre</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>输入指令之后回车即可生成，注意不要重复生成，你也生成不了。如下图所示。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/c3add1fb7a6879a40e25abb2fce6a53c.png" alt="在这里插入图片描述"></p>
+<p>jre文件夹已经生成成功了。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/ae3d5eed4cc0a20606f80cc29b059fde.png" alt="在这里插入图片描述"></p>
+<h3 id="四、验证环境变量配置"><a href="#四、验证环境变量配置" class="headerlink" title="四、验证环境变量配置"></a>四、验证环境变量配置</h3><p>  验证这个地方JDK1.8和JDK11没有什么区别，快捷键“ <code>win + R</code> ” ,打开运行窗口，输入cmd，点击确定打开命令行窗口。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/ad9f2df3b23d26c389eb2ecf622c5f88.png#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="①-java-验证"><a href="#①-java-验证" class="headerlink" title="① java 验证"></a>① java 验证</h4><p>输入 java ，回车执行<br><img src="https://i-blog.csdnimg.cn/blog_migrate/cdaacf01ca033bf3c4149be874180d32.png#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="②-javac-验证"><a href="#②-javac-验证" class="headerlink" title="② javac 验证"></a>② javac 验证</h4><p>在输入 javac ，回车执行<br><img src="https://i-blog.csdnimg.cn/blog_migrate/729ad648f26c944667dffe9989ad1559.png#pic_center" alt="在这里插入图片描述"><br>在这一步的时候比较多的人输入javac之后会出现 <strong>不是内部或外部命令,也不是可运行的程序。</strong> 的情况，后面我也查看自己的环境变量，也一一输入了java、javac、java -version的命令都是正常的。然后有读者说我的系统变量中 Path 的内容少了一部分，然后我就去对比了其他人的博客内容，我的确少了一部分，但是我运行javac是正常的<br><img src="https://i-blog.csdnimg.cn/blog_migrate/019d7afd1b2f2c84049fcbcd3aa2760d.png" alt="在这里插入图片描述"><br>如果你配置之后发现javac不行的话，就在Path中再加入一项 <strong>%JAVA_HOME%\jre\bin</strong><br><img src="https://i-blog.csdnimg.cn/blog_migrate/0883abf4f28bae6000e06bbb447c992c.png#pic_center" alt="在这里插入图片描述"><br>然后点击确定。再试一下javac看行不行。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/fdf2804a5f40c666ca07506c610c46b5.png" alt="在这里插入图片描述"><br>其实对我来说增加这个变量和不增加都是正常的，但是对于javac有问题的读者就可以试试看，说不定就可以了呢？这个发现来源于一个读者，发了一条长评论，感谢。</p>
+<p>当然也有朋友执行了上面的操作后，输入javac还是不行，我都惊了，不过有热心的读者在经历我上述操作后找到了一个可以成功的办法，我这里也做一下记录，因为说不定你就可以了，那就是改动Path中的内容。首先先看我现在的Path的内容是：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/d80b6a5365cd80e8a9cc57412f611adc.png#pic_center" alt="在这里插入图片描述"><br>你会发现这里的有一个%JAVA_HOME%，这个值就是之前配置的JDK的安装路径。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/886d2436014b9c48d2dd20a9f8ccaf9e.png" alt="在这里插入图片描述"><br>就是这个路径，那么修改的方式就是把上面的引用路径改成全路径。</p>
+<p>%JAVA_HOME%\bin<br>%JAVA_HOME%\jre\bin<br>改成，我现在是在安装路径是D:\Program Files\Java\jdk1.8.0_162，那么就改成下面这样<br>D:\Program Files\Java\jdk1.8.0_162\bin<br>D:\Program Files\Java\jdk1.8.0_162\jre\bin</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/de4709aeb56d8c63d2f188ce69c829e2.png#pic_center" alt="在这里插入图片描述"></p>
+<p>然后保存一顿确定，之后再打开cmd输入javac试一下：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/f6e341ae389bf29ab15ab57623d6022a.png" alt="在这里插入图片描述"><br>可以。这里只是做一下解决方法的记录，如果你依然不行，不要慌，继续去寻找，并且解决后记录一下过程，告诉我也行，我补充到文章中。</p>
+<p>依然是一位热心的读者提供，说可以试一下管理员启动CMD，再试试看，有javac运行失败的可以尝试。管理运行的方式如下图所示：<br><img src="https://i-blog.csdnimg.cn/blog_migrate/e826091d9b1776d231ed9573ed10b168.png" alt="在这里插入图片描述"><br>各位读者如果在遇到问题发现了解决的方法时可以评论区留言，我将会添加到文章中，人多力量大，同时BUG少。</p>
+<h4 id="③-java-version-验证"><a href="#③-java-version-验证" class="headerlink" title="③ java -version 验证"></a>③ java -version 验证</h4><p>再输入 java -version ，回车执行，（注意，java -version 中间有空格，我看到太多粗心的少打空格而失败了，切记、切记、切记。）<br><img src="https://i-blog.csdnimg.cn/blog_migrate/e50e96942e7301054e215bbd3b7f8813.png#pic_center" alt="在这里插入图片描述"><br>至此，环境变量就配置完毕了，如果你是win7的操作系统，那么第三步要稍作改动。</p>
+<p>QA：有部分人安装完JDK之后不能完整的使用命令得到相应的结果，首先检查命令有没有输错，例如中英文状态，还有空格，如果是javac没有反应或者提示不是内部或外部命令，则检查一下安装的文件是否完整，查询安装文件夹中是否有jdk和jre。</p>
+<p>  如果检查了安装文件没有问题就重启一下试试，可能不同的电脑环境变量生效的方式不同，这方法来自评论，试一下没有什么坏事。</p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><a class="post-copyright__author_img" href="/about/"><img class="post-copyright__author_img_front" src="/img/pwa/favicon.ico"></a><div class="post-copyright__author_name">ChのBlog</div><div class="post-copyright__author_desc">caicai</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">ChのBlog</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/hexo/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>hexo<span class="tagsPageCount">2</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/05/07/first-blog/"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">This is my first blog</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="author-info__top-group"><div class="author-info__sayhi" id="author-info__sayhi" onclick="sco.changeSayHelloText()">sayhello.morning</div></div></div><div class="avatar-img-group"><img class="avatar-img" alt="头像" src="https://s2.loli.net/2024/09/14/JNV6nMZvy23hT9a.png"></div><div class="author-info__description_group"><div class="author-info__description">这是我的博客 / This is my Blog</div><div class="author-info__description2">一个热爱生活的人 / A person who loves life</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about/"><div class="author-info__name">caicai</div><div class="author-info__desc">caicai</div></a><div class="card-info-social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fa-solid fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">一、 准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-text">二、安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-JDK-1-8%E5%AE%89%E8%A3%85"><span class="toc-text">① JDK 1.8安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-JDK-11-https-so-csdn-net-so-search-q-JDK-11-spm-1001-2101-3001-7020-%E5%AE%89%E8%A3%85"><span class="toc-text">② [JDK 11](https:&#x2F;&#x2F;so.csdn.net&#x2F;so&#x2F;search?q&#x3D;JDK 11&amp;spm&#x3D;1001.2101.3001.7020)安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">三、 配置环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E8%BF%9B%E5%85%A5%E9%AB%98%E7%BA%A7%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE"><span class="toc-text">① 进入高级系统设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-JDK1-8%E9%85%8D%E7%BD%AE"><span class="toc-text">② JDK1.8配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-JDK11%E9%85%8D%E7%BD%AE"><span class="toc-text">③ JDK11配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E7%94%9F%E6%88%90jre%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-text">④ 生成jre文件夹</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%AA%8C%E8%AF%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">四、验证环境变量配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-java-%E9%AA%8C%E8%AF%81"><span class="toc-text">① java 验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-javac-%E9%AA%8C%E8%AF%81"><span class="toc-text">② javac 验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-java-version-%E9%AA%8C%E8%AF%81"><span class="toc-text">③ java -version 验证</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fa-solid fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/2022/05/07/first-blog/" title="This is my first blog"><div class="thumbnail"><img alt="This is my first blog" src="/img/default.avif"></div><div class="content"><span class="title" href="/2022/05/07/first-blog/" title="This is my first blog">This is my first blog</span></div></a><a class="aside-list-item" href="/2022/05/07/jdk%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="jdk的环境配置"><div class="thumbnail"><img alt="jdk的环境配置" src="/img/default.avif"></div><div class="content"><span class="title" href="/2022/05/07/jdk%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="jdk的环境配置">jdk的环境配置</span></div></a></div></div></div></div></main><footer id="footer"><div id="footer_deal"></div><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2025 By&nbsp;<a class="footer-bar-link" href="/">caicai</a></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" alt="Theme">Theme</a></div></div></div></footer></div><!-- right_menu--><!-- inject body--><div><script src="/js/utils.js?v=2.0.13"></script><script src="/js/main.js?v=2.0.13"></script><script src="/js/third_party/waterfall.min.js?v=2.0.13"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pjax/0.2.8/pjax.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div class="js-pjax"></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ['title','#body-wrap','#site-config','meta[name="description"]','.js-pjax','meta[property^="og:"]','#config-diff'],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- google adsense--><!-- search--><!-- Tianli-Talk--><!-- music--></body></html><script>const posts=["2022/05/07/first-blog/","2022/05/07/jdk的环境配置/"];function toRandomPost(){ pjax.loadUrl(GLOBAL_CONFIG.root+posts[Math.floor(Math.random()*posts.length)]); }</script>
